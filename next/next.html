@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kesya</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="sticky-header">
+        <h1>My Profile</h1>
+    </div>
+    <div class="container">
+        <h1 class="header">Tentang Kesya</h1>
+        <div class="profile">
+            <img src="skolah.jpg" alt="Foto Kesya" class="profile-pic" style="display:block; margin:0 auto 18px auto;">
+            <h2>Kesya Alicia Caroline</h2>
+            <p><b>Usia:</b> 19 Tahun</p>
+            <p><b>Hobi:</b> Menari, Membaca, dan Traveling</p>
+            <p><b>Jurusan:</b> Akuntansi</p>
+            <p><b>Sekolah:</b> Universitas Katolik Musi Charitas</p>
+            <hr style="margin:18px 0; border:0; border-top:1.5px dashed #b2b5e0;">
+            <!-- ...existing code... -->
+<div style="color:#4d4d6b; font-size:1.05rem;">
+    <p class="bio-paragraph">
+        Kesya,
+        Kamu sedang memulai perjalanan yang nggak mudah meninggalkan zona nyaman, masuk ke dunia baru, dan membawa harapan besar di pundakmu. Tapi aku percaya, kamu bisa. Bukan karena kamu harus sempurna, tapi karena kamu selalu berusaha dengan hati yang tulus dan niat yang jernih.
+    </p>
+    <p class="bio-paragraph">
+        Kamu mungkin nggak selalu terlihat, dan kadang kamu merasa sendiri dalam pikiranmu sendiri. Tapi percayalah, semua yang kamu lakukan sekecil apa pun itu berarti. Cara kamu menari, merajut, membaca diam-diam sebelum tidur… semua itu bukan hal sepele. Itu adalah bagian dari siapa kamu, dan itu indah.
+    </p>
+    <p class="bio-paragraph">
+        Kamu nggak harus jadi orang lain untuk bisa dihargai. Kamu yang sekarang, yang tenang tapi kuat, yang pendiam tapi penuh perhatian, yang melangkah pelan tapi pasti, itu sudah luar biasa. Kamu punya kekuatan yang nggak semua orang punya: kekuatan untuk tetap lembut di dunia yang keras, dan tetap jujur di tengah semua tuntutan.
+    </p>
+    <p class="bio-paragraph">
+       Kalau suatu hari kamu merasa lelah atau ragu, ingat ini: kamu nggak sendiri. Kamu dicintai, dihargai, dan dilihat, meskipun kamu nggak selalu merasa begitu. Teruslah melangkah, Kesya. Kamu sedang membangun sesuatu yang besar, bahkan jika prosesnya terasa sunyi. Aku, dengan sepenuh hati percaya kamu pasti bisa.
+    </p>
+    <p class="bio-paragraph">
+        <i>"She lives quietly, but with intention. Not for show, but with sincerity."</i>
+    </p>
+</div>
+<!-- ...existing code... -->
+        </div>
+        <button onclick="window.location.href='../index.html'">Kembali</button>
+    </div>
+    <!-- Musik Player -->
+    <div class="music-player">
+        <audio id="bg-music" loop>
+            <source src="v2.mp3" type="audio/mp3">
+            Browser Anda tidak mendukung audio.
+        </audio>
+        <button id="music-toggle" aria-label="Play/Pause Music">
+            <span id="music-icon">🎵</span>
+        </button>
+    </div>
+    <script>
+        // Musik Play/Pause
+        const music = document.getElementById('bg-music');
+        const toggle = document.getElementById('music-toggle');
+        const icon = document.getElementById('music-icon');
+        let playing = false;
+
+        // Resume posisi jika ada di sessionStorage
+        if (sessionStorage.getItem('musicTime')) {
+            music.currentTime = parseFloat(sessionStorage.getItem('musicTime'));
+            if (sessionStorage.getItem('musicPlaying') === "true") {
+                music.play();
+                icon.textContent = "🔊";
+                playing = true;
+            }
+        }
+
+        // Autoplay jika user klik halaman
+        document.body.addEventListener('click', function autoPlay() {
+            if (!playing) {
+                music.volume = 0.5;
+                music.play();
+                playing = true;
+                icon.textContent = "🔊";
+            }
+            document.body.removeEventListener('click', autoPlay);
+        });
+
+        toggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (music.paused) {
+                music.play();
+                icon.textContent = "🔊";
+            } else {
+                music.pause();
+                icon.textContent = "🎵";
+            }
+        });
+
+        // Update posisi lagu secara berkala
+        setInterval(() => {
+            sessionStorage.setItem('musicTime', music.currentTime);
+            sessionStorage.setItem('musicPlaying', !music.paused);
+        }, 1000);
+    </script>
+</body>
+
+<footer>
+    <p>&copy; 2025 Kesya Alicia Caroline. All rights reserved.</p>
+</footer>
+
+</html>

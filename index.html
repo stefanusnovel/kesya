@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kesya</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Animasi Partikel -->
+    <div class="particles">
+        <div class="particle p1"></div>
+        <div class="particle p2"></div>
+        <div class="particle p3"></div>
+        <div class="particle p4"></div>
+    </div>
+    <div class="container">
+        <div class="sticky-header">
+            <h1>My Profile</h1>
+        </div>
+        <div class="profile">
+            <img src="skolah.jpg" alt="foto" class="profile-pic" style="display:block; margin:0 auto 18px auto;">
+            <h2>Nama: Kesya Alicia Caroline</h2>
+            <p>Usia: 19 Tahun</p>
+            <p>Hobi: Menari</p>
+            <p>Jurusan: Akuntasi</p>
+            <p>Sekolah: Universitas Katolik Musi Charitas</p>
+        </div>
+        <button id="messageButton">Selanjutnya</button>
+    </div>
+    <!-- Musik Player -->
+    <div class="music-player">
+        <audio id="bg-music" loop>
+            <source src="v2.mp3" type="audio/mp3">
+        </audio>
+        <button id="music-toggle" aria-label="Play/Pause Music">
+            <span id="music-icon">🎵</span>
+        </button>
+    </div>
+    <script>
+        // Button Next
+        document.getElementById('messageButton').addEventListener('click', function() {
+            // Simpan posisi dan status lagu sebelum pindah halaman
+            sessionStorage.setItem('musicTime', music.currentTime);
+            sessionStorage.setItem('musicPlaying', !music.paused);
+            window.location.href = 'next/next.html';
+        });
+
+        // Musik Play/Pause
+        const music = document.getElementById('bg-music');
+        const toggle = document.getElementById('music-toggle');
+        const icon = document.getElementById('music-icon');
+        let playing = false;
+
+        // Resume posisi jika ada di sessionStorage
+        if (sessionStorage.getItem('musicTime')) {
+            music.currentTime = parseFloat(sessionStorage.getItem('musicTime'));
+            if (sessionStorage.getItem('musicPlaying') === "true") {
+                music.play();
+                icon.textContent = "🔊";
+                playing = true;
+            }
+        }
+
+        // Autoplay jika user klik halaman
+        document.body.addEventListener('click', function autoPlay() {
+            if (!playing) {
+                music.volume = 0.5;
+                music.play();
+                playing = true;
+                icon.textContent = "🔊";
+            }
+            document.body.removeEventListener('click', autoPlay);
+        });
+
+        toggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (music.paused) {
+                music.play();
+                icon.textContent = "🔊";
+            } else {
+                music.pause();
+                icon.textContent = "🎵";
+            }
+        });
+
+        // Update posisi lagu secara berkala
+        setInterval(() => {
+            sessionStorage.setItem('musicTime', music.currentTime);
+            sessionStorage.setItem('musicPlaying', !music.paused);
+        }, 1000);
+    </script>
+</body>
+
+<footer>
+    <p>&copy; 2025 Kesya Alicia Caroline. All rights reserved.</p>
+</footer>
+
+</html>
